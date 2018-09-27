@@ -12,4 +12,7 @@
     <color name="secondaryDarkColor">#c77800</color>
     <color name="primaryTextColor">#8d6e63</color>
     <color name="secondaryTextColor">#8d6e63</color>
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="declaration_title">#4c4c4c</color>
 </resources>
