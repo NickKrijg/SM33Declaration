@@ -9,6 +9,6 @@ public class User {
     private String iban;
     private List<Authority> authority;
     private List<Declaration> declaration;
-
+    
 
 }
