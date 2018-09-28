@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class Declaration {
 
-    private Uri receiptPhoto;
+    private String receiptPhoto;
     private int price;
     private String description;
     private Authority authority;
