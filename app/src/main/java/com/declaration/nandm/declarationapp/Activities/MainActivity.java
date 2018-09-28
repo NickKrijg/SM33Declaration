@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Toolbar Colapsing
+        //Toolbar Collapsing
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
         initCollapsingToolbar();
 
         // Call Adapter
-        declarations = new ArrayList<>();
-        adapter = new AllDeclarationsAdapter( declarations,this);
+        adapter = new AllDeclarationsAdapter(this);
 
         //Recycle View
 
@@ -66,29 +65,22 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        // Make Mock Data
-        PopulateList();
 
-
+        //Get data firebase
         mRoot = FirebaseDatabase.getInstance();
-        
-/*
-        //Mock data for declarations
-        DatabaseReference reference = mRoot.getReference("Declarations");
 
-
-        for (int i =0; i<10;i++){
-            Declaration dec = new Declaration();
-            dec.setUserId("notNick");
-            dec.setDescription(Integer.toString(i));
-            dec.setPrice(i);
-            reference.push().setValue(dec);
-        }
-*/
+        user = new User();
 
         getUser("nick");
         getDeclaration("nick");
-        System.out.println(user);
+
+
+
+        // Fill database with mock data, uncomment when db is empty
+//         fillDatabaseMockData();
+
+        // Make Mock List
+//        PopulateList();
     }
 
 
@@ -127,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void PopulateList(){
-
         Declaration d = new Declaration("Bier Halen","Bier halen voor de vergadering");
         declarations.add(d);
 
@@ -169,18 +160,20 @@ public class MainActivity extends AppCompatActivity {
 
         d = new Declaration("Max","moet peopen");
         declarations.add(d);
+
         adapter.notifyDataSetChanged();
     }
 
-
-
+    /**
+     * Gets user information and stores it into the user variable of this activity.
+     * @param email unique String in Firebase.
+     */
     private void getUser(String email){
         DatabaseReference userRef = mRoot.getReference("Users/" + email);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
-                System.out.println(user);
             }
 
             @Override
@@ -190,6 +183,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets all the declarations of a specific user. And stores them into the list @declaration,
+     * and updates/notifies the adapter.
+     * @param email unique String in Firebase.
+     */
     private void getDeclaration(String email){
         DatabaseReference decRef = mRoot.getReference("Declarations");
         Query query = decRef.orderByChild("userId").equalTo(email);
@@ -197,13 +195,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists() && user != null){
-                    List<Declaration> currentList = user.getDeclaration();
+                    List<Declaration> currentList = new ArrayList<>();
                     for(DataSnapshot declaration: dataSnapshot.getChildren()){
                         currentList.add(declaration.getValue(Declaration.class));
                     }
+                    user.getDeclaration().clear();
                     user.setDeclaration(currentList);
-                    System.out.println(user);
+                    adapter.setList(user.getDeclaration());
                 }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -211,5 +211,28 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void fillDatabaseMockData(){
+        //Mock data for declarations
+        DatabaseReference reference = mRoot.getReference("Declarations");
+
+        for (int i =0; i<10;i++){
+            Declaration dec = new Declaration();
+            dec.setAuthority("Authority " + i);
+            dec.setUserId("notNick");
+            dec.setDescription(Integer.toString(i));
+            dec.setPrice(i);
+            reference.push().setValue(dec);
+        }
+
+        for (int i =0; i<10;i++){
+            Declaration dec = new Declaration();
+            dec.setAuthority("Authority " + i);
+            dec.setUserId("nick");
+            dec.setDescription(Integer.toString(i));
+            dec.setPrice(i);
+            reference.push().setValue(dec);
+        }
     }
 }

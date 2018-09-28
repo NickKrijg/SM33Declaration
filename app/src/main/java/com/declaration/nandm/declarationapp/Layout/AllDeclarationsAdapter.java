@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -18,9 +19,14 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
     private List<Declaration> declarations;
     private Context mContext;
 
-    public AllDeclarationsAdapter(List<Declaration> declarations, Context mContext) {
-        this.declarations = declarations;
+    public AllDeclarationsAdapter(Context mContext) {
+        declarations = new ArrayList<>();
         this.mContext = mContext;
+    }
+
+    public void setList(List<Declaration> dec){
+        declarations.clear();
+        declarations = dec;
     }
 
     @NonNull
@@ -35,9 +41,8 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Declaration declaration = declarations.get(position);
-        holder.title.setText(declaration.getTitle());
-        holder.description.setText(declaration.getDescription());
-
+        holder.title.setText(declaration.getAuthority());
+        holder.description.setText(declaration.getUserId());
     }
 
     @Override
