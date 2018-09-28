@@ -126,8 +126,14 @@ public class MainActivity extends AppCompatActivity {
         d = new Declaration("Muziekinstrument","muziek instrument halen voor de kapotgemaakten fluit");
         declarations.add(d);
 
+        d = new Declaration("Max","moet peopen");
+        declarations.add(d);
 
+        d = new Declaration("Max","moet peopen");
+        declarations.add(d);
 
+        d = new Declaration("Max","moet peopen");
+        declarations.add(d);
         adapter.notifyDataSetChanged();
     }
 
