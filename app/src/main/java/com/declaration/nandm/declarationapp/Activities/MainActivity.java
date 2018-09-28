@@ -12,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-<<<<<<< HEAD
-=======
 
     private void PopulateList(){
 
@@ -60,7 +58,4 @@ public class MainActivity extends AppCompatActivity {
         declarations.add(d);
         adapter.notifyDataSetChanged();
     }
-
-
->>>>>>> UI_MainPage
 }
