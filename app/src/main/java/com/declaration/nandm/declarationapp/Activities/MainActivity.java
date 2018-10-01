@@ -1,22 +1,21 @@
 package com.declaration.nandm.declarationapp.Activities;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
+import android.view.View;
 
-import com.declaration.nandm.declarationapp.Data.Interfaces.IUserRepository;
-import com.declaration.nandm.declarationapp.Data.Repositories.UserRepository;
-import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.User;
 
-import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Layout.AllDeclarationsAdapter;
 import com.declaration.nandm.declarationapp.Layout.GridSpacingItemDecoration;
 import com.declaration.nandm.declarationapp.R;
@@ -32,6 +31,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private FloatingActionButton fab;
+
     private RecyclerView recyclerView;
     private AllDeclarationsAdapter adapter;
     private List<Declaration> declarations;
@@ -44,6 +45,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+
+        fab.setEnabled(false);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NewDeclarationActivity.class);
+                if (user != null){
+                    intent.putExtra("user", user);
+                    startActivity(intent);
+                }
+            }
+        });
+
 
         //Toolbar Collapsing
 
@@ -174,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
+                fab.setEnabled(true);
             }
 
             @Override

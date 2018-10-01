@@ -1,6 +1,8 @@
 package com.declaration.nandm.declarationapp.Domain;
 
-public class Authority {
+import java.io.Serializable;
+
+public class Authority implements Serializable {
 
 
     private String Name;

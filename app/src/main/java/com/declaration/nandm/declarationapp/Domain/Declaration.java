@@ -2,11 +2,12 @@ package com.declaration.nandm.declarationapp.Domain;
 
 import android.net.Uri;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Declaration {
+public class Declaration implements Serializable{
 
-    private int price;
+    private double price;
     private String title;
     private String receiptPhoto;
     private String description;
@@ -31,8 +32,11 @@ public class Declaration {
         this.date = date;
     }
 
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -60,7 +64,6 @@ public class Declaration {
         this.authority = new Authority(name);
     }
 
-
     public Declaration() {
 
     }
@@ -86,7 +89,4 @@ public class Declaration {
         this.description = description;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
 }
