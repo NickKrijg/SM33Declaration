@@ -43,6 +43,19 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
         Declaration declaration = declarations.get(position);
         holder.title.setText(declaration.getAuthority());
         holder.description.setText(declaration.getUserId());
+        switch(declaration.getState()){
+            case Declined:
+                holder.state.setImageResource(R.color.statusDeclined);
+                break;
+            case Accepted:
+                holder.state.setImageResource(R.color.statusAccepted);
+                break;
+            case Pending:
+                holder.state.setImageResource(R.color.statusPending);
+                break;
+            default:
+                holder.state.setImageResource(R.color.statusPending);
+        }
     }
 
     @Override

@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.declaration.nandm.declarationapp.Domain.Declaration;
+import com.declaration.nandm.declarationapp.Domain.State;
 import com.declaration.nandm.declarationapp.Domain.User;
 
 import com.declaration.nandm.declarationapp.Layout.AllDeclarationsAdapter;
@@ -87,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
 
         user = new User();
 
-        getUser("nick");
-        getDeclaration("nick");
+        getUser("nick@jids.nl");
+        getDeclaration("nick@jids.nl");
 
 
 
         // Fill database with mock data, uncomment when db is empty
-//         fillDatabaseMockData();
+//        fillDatabaseMockData();
 
         // Make Mock List
 //        PopulateList();
@@ -185,8 +186,9 @@ public class MainActivity extends AppCompatActivity {
      * @param email unique String in Firebase.
      */
     private void getUser(String email){
-        DatabaseReference userRef = mRoot.getReference("Users/" + email);
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference userRef = mRoot.getReference("Users/");
+        Query query = userRef.orderByChild("email").equalTo(email);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 user = dataSnapshot.getValue(User.class);
@@ -246,9 +248,15 @@ public class MainActivity extends AppCompatActivity {
         for (int i =0; i<10;i++){
             Declaration dec = new Declaration();
             dec.setAuthority("Authority " + i);
-            dec.setUserId("nick");
+            dec.setUserId("nick@jids.nl");
             dec.setDescription(Integer.toString(i));
             dec.setPrice(i);
+            if (i%2 == 1){
+                dec.setState(State.Accepted);
+            }
+            else{
+                dec.setState(State.Declined);
+            }
             reference.push().setValue(dec);
         }
     }

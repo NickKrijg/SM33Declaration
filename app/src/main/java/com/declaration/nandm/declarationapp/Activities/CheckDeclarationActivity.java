@@ -1,7 +1,5 @@
 package com.declaration.nandm.declarationapp.Activities;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
@@ -9,13 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
+import com.declaration.nandm.declarationapp.Domain.State;
 import com.declaration.nandm.declarationapp.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +49,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
 
         declaration = (Declaration) getIntent().getSerializableExtra("declaration");
         if(declaration != null){
+            declaration.setState(State.Pending);
             fillFields();
         }
 
