@@ -4,6 +4,6 @@
     <string name="action_add_favourite">Add to Favourites</string>
     <string name="action_play_next">Play Next</string>-->
     <string name="backdrop_title">Declaration App</string>
-    <string name="backdrop_subtitle">Make your reservations here</string>
+    <string name="backdrop_subtitle">Make your declarations here</string>
     <string name="title_activity_new_declaration">newDeclarationActivity</string>
 </resources>

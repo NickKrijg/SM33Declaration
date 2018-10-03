@@ -13,6 +13,10 @@
     <color name="primaryTextColor">#8d6e63</color>
     <color name="secondaryTextColor">#8d6e63</color>
 
+    <color name="statusRed">#bc0b0b</color>
+    <color name="statusGreen">#14bc0b</color>
+    <color name="statusBlue">#0b0ebc</color>
+
     <color name="viewBg">#f1f5f8</color>
     <color name="declaration_title">#4c4c4c</color>
 </resources>
