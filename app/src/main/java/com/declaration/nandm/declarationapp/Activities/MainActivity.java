@@ -51,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
 
-        fab.setEnabled(false);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                user = dataReceiver.getUser();
                 Intent intent = new Intent(MainActivity.this, NewDeclarationActivity.class);
                 if (user != null){
                     intent.putExtra("user", user);
