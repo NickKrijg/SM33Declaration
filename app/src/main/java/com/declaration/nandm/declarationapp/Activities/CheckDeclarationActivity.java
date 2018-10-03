@@ -78,8 +78,9 @@ public class CheckDeclarationActivity extends AppCompatActivity {
 
                     Toast.makeText(CheckDeclarationActivity.this,"Upload success", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(CheckDeclarationActivity.this ,MainActivity.class);
-                    startActivity(intent);
+                    Intent intent = new Intent();
+                    setResult(999, intent);
+                    finish();
                 }
             });
         }

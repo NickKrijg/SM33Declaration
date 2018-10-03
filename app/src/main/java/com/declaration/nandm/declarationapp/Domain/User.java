@@ -9,7 +9,7 @@ public class User implements Serializable{
     private String name;
     private String email;
     private String iban;
-    private List<Authority> authority;
+    private List<Authority> authority = new ArrayList<>();
     private List<Declaration> declaration = new ArrayList<>();
 
     public User() {

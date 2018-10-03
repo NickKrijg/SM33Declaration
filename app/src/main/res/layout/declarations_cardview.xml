@@ -19,17 +19,17 @@
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/declaration_title"
                 android:paddingRight="@dimen/declaration_title"
-                android:paddingTop="@dimen/declaration_title"
+                android:paddingTop="@dimen/card_margin"
                 android:textColor="@color/declaration_title"
                 android:textSize="@dimen/declaration_title" />
 
             <TextView
                 android:id="@+id/description"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
                 android:paddingBottom="@dimen/declaration_description_padding_bottom"
@@ -44,6 +44,16 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:src="@color/statusAccepted" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="@dimen/card_margin"
+                android:textSize="@dimen/declaration_title"
+                />
 
         </RelativeLayout>
 

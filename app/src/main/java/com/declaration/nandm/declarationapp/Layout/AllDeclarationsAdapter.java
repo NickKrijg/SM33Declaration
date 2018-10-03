@@ -42,7 +42,8 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Declaration declaration = declarations.get(position);
         holder.title.setText(declaration.getAuthority());
-        holder.description.setText(declaration.getUserId());
+        holder.description.setText(declaration.getDescription());
+        holder.price.setText("€" + String.valueOf(declaration.getPrice()));
         switch(declaration.getState()){
             case Declined:
                 holder.state.setImageResource(R.color.statusDeclined);

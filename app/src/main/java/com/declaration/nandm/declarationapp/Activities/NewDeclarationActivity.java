@@ -72,7 +72,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
 
         Intent intent = new Intent(NewDeclarationActivity.this ,CheckDeclarationActivity.class);
         intent.putExtra("declaration", declaration);
-        startActivity(intent);
+        startActivityForResult(intent, 999);
     }
 
     private File createImageFile() throws IOException {
@@ -117,11 +117,16 @@ public class NewDeclarationActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
 
-        File f = new File(mCurrentPhotoPath);
-        Uri contentUri = Uri.fromFile(f);
-        declaration.setReceiptPhoto(mCurrentPhotoPath);
+        if (requestCode == 1){
+            File f = new File(mCurrentPhotoPath);
+            Uri contentUri = Uri.fromFile(f);
+            declaration.setReceiptPhoto(mCurrentPhotoPath);
 
-        Glide.with(this).load(contentUri).apply(new RequestOptions().centerCrop()).into(imageView);
+            Glide.with(this).load(contentUri).apply(new RequestOptions().centerCrop()).into(imageView);
+        }
+        else if (requestCode == 999){
+            finish();
+        }
     }
 
 }

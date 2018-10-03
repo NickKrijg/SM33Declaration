@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
 
+import com.declaration.nandm.declarationapp.Data.DataReceiver;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.State;
 import com.declaration.nandm.declarationapp.Domain.User;
@@ -38,9 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private AllDeclarationsAdapter adapter;
     private List<Declaration> declarations;
 
+    private DataReceiver dataReceiver;
+
     private FirebaseDatabase mRoot;
     private User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, NewDeclarationActivity.class);
                 if (user != null){
                     intent.putExtra("user", user);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
             }
         });
@@ -86,10 +88,6 @@ public class MainActivity extends AppCompatActivity {
         //Get data firebase
         mRoot = FirebaseDatabase.getInstance();
 
-        user = new User();
-
-        getUser("nick@jids.nl");
-        getDeclaration("nick@jids.nl");
 
 
 
@@ -99,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         // Make Mock List
 //        PopulateList();
     }
-
 
     // Toolbar Settings
     private void initCollapsingToolbar() {
@@ -191,7 +188,10 @@ public class MainActivity extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                user = dataSnapshot.getValue(User.class);
+
+                for(DataSnapshot snap: dataSnapshot.getChildren()){
+                    user = snap.getValue(User.class);
+                }
                 fab.setEnabled(true);
             }
 
@@ -233,6 +233,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void fillDatabaseMockData(){
+
+        //Mock user data
+        DatabaseReference databaseReference = mRoot.getReference("Users");
+        User u = new User();
+        u.setEmail("nick@jids.nl");
+        u.setName("HENKEIEEEE");
+        databaseReference.push().setValue(u);
+
         //Mock data for declarations
         DatabaseReference reference = mRoot.getReference("Declarations");
 
@@ -259,5 +267,16 @@ public class MainActivity extends AppCompatActivity {
             }
             reference.push().setValue(dec);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        dataReceiver = new DataReceiver("nick@jids.nl", adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
     }
 }

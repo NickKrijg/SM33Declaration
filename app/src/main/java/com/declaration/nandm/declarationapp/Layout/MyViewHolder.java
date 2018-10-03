@@ -10,7 +10,7 @@ import com.declaration.nandm.declarationapp.R;
 
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-    public TextView title, description;
+    public TextView title, description, price;
     public ImageView state;
 
     public MyViewHolder(View view) {
@@ -18,5 +18,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         title = (TextView) view.findViewById(R.id.title);
         description = (TextView) view.findViewById(R.id.description);
         state = (ImageView) view.findViewById(R.id.overflow);
+        price = (TextView) view.findViewById(R.id.price);
     }
 }
