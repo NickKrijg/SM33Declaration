@@ -9,11 +9,15 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.User;
 import com.declaration.nandm.declarationapp.R;
@@ -21,6 +25,7 @@ import com.declaration.nandm.declarationapp.R;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -30,6 +35,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
     private FloatingActionButton fab;
     private EditText editPrice;
     private EditText editDescription;
+    private Spinner spinnerAuthority;
 
     private Declaration declaration;
     private String mCurrentPhotoPath;
@@ -46,8 +52,33 @@ public class NewDeclarationActivity extends AppCompatActivity {
 
         editDescription = (EditText)findViewById(R.id.editDescription);
         editPrice = (EditText)findViewById(R.id.editPrice);
+        spinnerAuthority = (Spinner) findViewById(R.id.spinnerAuthority);
         fab = (FloatingActionButton)findViewById(R.id.fabSend);
         imageView = (ImageView)findViewById(R.id.imageView);
+
+        ArrayList<String> authorities = new ArrayList<>();
+
+        for (Authority item:user.getAuthority()){
+            authorities.add(item.getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item, authorities);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerAuthority.setAdapter(adapter);
+
+        spinnerAuthority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
 
         dispatchPhotoIntent();
 
@@ -67,7 +98,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
 
     private void sendDeclaration() {
         declaration.setPrice(Double.parseDouble(editPrice.getText().toString()));
-        declaration.setAuthority("Sportclub");
+        declaration.setAuthority(spinnerAuthority.getSelectedItem().toString());
         declaration.setDescription(editDescription.getText().toString());
 
         Intent intent = new Intent(NewDeclarationActivity.this ,CheckDeclarationActivity.class);

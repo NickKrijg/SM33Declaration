@@ -11,6 +11,9 @@ public class Authority implements Serializable {
         Name = name;
     }
 
+    public Authority() {
+    }
+
     public String getName() { return Name; }
 
     public void setName(String name) { Name = name; }

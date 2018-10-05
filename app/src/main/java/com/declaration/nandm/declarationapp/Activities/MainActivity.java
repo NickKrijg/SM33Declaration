@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.declaration.nandm.declarationapp.Data.DataReceiver;
+import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.State;
 import com.declaration.nandm.declarationapp.Domain.User;
@@ -178,65 +179,18 @@ public class MainActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /**
-     * Gets user information and stores it into the user variable of this activity.
-     * @param email unique String in Firebase.
-     */
-    private void getUser(String email){
-        DatabaseReference userRef = mRoot.getReference("Users/");
-        Query query = userRef.orderByChild("email").equalTo(email);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot snap: dataSnapshot.getChildren()){
-                    user = snap.getValue(User.class);
-                }
-                fab.setEnabled(true);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    /**
-     * Gets all the declarations of a specific user. And stores them into the list @declaration,
-     * and updates/notifies the adapter.
-     * @param email unique String in Firebase.
-     */
-    private void getDeclaration(String email){
-        DatabaseReference decRef = mRoot.getReference("Declarations");
-        Query query = decRef.orderByChild("userId").equalTo(email);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists() && user != null){
-                    List<Declaration> currentList = new ArrayList<>();
-                    for(DataSnapshot declaration: dataSnapshot.getChildren()){
-                        currentList.add(declaration.getValue(Declaration.class));
-                    }
-                    user.getDeclaration().clear();
-                    user.setDeclaration(currentList);
-                    adapter.setList(user.getDeclaration());
-                }
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     private void fillDatabaseMockData(){
 
         //Mock user data
         DatabaseReference databaseReference = mRoot.getReference("Users");
         User u = new User();
+
+        ArrayList<Authority> authorities = new ArrayList<>();
+        authorities.add(new Authority("Sportclub"));
+        authorities.add(new Authority("Muziekclub"));
+        authorities.add(new Authority("fokkingpindakaas"));
+
+        u.setAuthority(authorities);
         u.setEmail("nick@jids.nl");
         u.setName("HENKEIEEEE");
         databaseReference.push().setValue(u);
