@@ -33,6 +33,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     TextView txtDescription;
     TextView txtAuthority;
     Button btnSend;
+    Button btnEdit;
 
     Uri contentUri;
 
@@ -46,6 +47,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
         txtAuthority = (TextView)findViewById(R.id.txtAuthority);
         txtDescription = (TextView)findViewById(R.id.txtDescription);
         btnSend = (Button)findViewById(R.id.btSend);
+        btnEdit = (Button)findViewById(R.id.btEdit);
 
 
         declaration = (Declaration) getIntent().getSerializableExtra("declaration");
@@ -58,6 +60,12 @@ public class CheckDeclarationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sendDeclaration();
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
