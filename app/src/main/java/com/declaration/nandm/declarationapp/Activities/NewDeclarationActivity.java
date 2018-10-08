@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -51,10 +52,11 @@ public class NewDeclarationActivity extends AppCompatActivity {
         declaration.setUserId(user.getEmail());
 
         editDescription = (EditText)findViewById(R.id.editDescription);
-        editPrice = (EditText)findViewById(R.id.editPrice);
         spinnerAuthority = (Spinner) findViewById(R.id.spinnerAuthority);
         fab = (FloatingActionButton)findViewById(R.id.fabSend);
         imageView = (ImageView)findViewById(R.id.imageView);
+
+        editPrice = (EditText)findViewById(R.id.editPrice);
 
         ArrayList<String> authorities = new ArrayList<>();
 
@@ -80,7 +82,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
         });
 
 
-        dispatchPhotoIntent();
+       // dispatchPhotoIntent();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,13 +99,31 @@ public class NewDeclarationActivity extends AppCompatActivity {
     }
 
     private void sendDeclaration() {
-        declaration.setPrice(Double.parseDouble(editPrice.getText().toString()));
-        declaration.setAuthority(spinnerAuthority.getSelectedItem().toString());
-        declaration.setDescription(editDescription.getText().toString());
+        boolean allFieldsFilled = true;
 
-        Intent intent = new Intent(NewDeclarationActivity.this ,CheckDeclarationActivity.class);
-        intent.putExtra("declaration", declaration);
-        startActivityForResult(intent, 999);
+        if (!editPrice.getText().toString().matches("") &&
+                !editDescription.getText().toString().matches("")
+                && declaration.getReceiptPhoto() != null){
+            declaration.setPrice(Double.parseDouble(editPrice.getText().toString()));
+            declaration.setAuthority(spinnerAuthority.getSelectedItem().toString());
+            declaration.setDescription(editDescription.getText().toString());
+
+        } else if(declaration.getReceiptPhoto() == null) {
+            Toast.makeText(NewDeclarationActivity.this,"Take a picture", Toast.LENGTH_SHORT).show();
+            allFieldsFilled = false;
+        } else if (editPrice.getText().toString().matches("")){
+            Toast.makeText(NewDeclarationActivity.this,"Add price", Toast.LENGTH_SHORT).show();
+            allFieldsFilled = false;
+        } else if (editDescription.getText().toString().matches("")){
+            Toast.makeText(NewDeclarationActivity.this,"Add description", Toast.LENGTH_SHORT).show();
+            allFieldsFilled = false;
+        }
+
+        if (allFieldsFilled){
+            Intent intent = new Intent(NewDeclarationActivity.this ,CheckDeclarationActivity.class);
+            intent.putExtra("declaration", declaration);
+            startActivityForResult(intent, 999);
+        }
     }
 
     private File createImageFile() throws IOException {
