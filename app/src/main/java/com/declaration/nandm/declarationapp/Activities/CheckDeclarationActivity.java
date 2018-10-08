@@ -47,6 +47,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
         txtDescription = (TextView)findViewById(R.id.txtDescription);
         btnSend = (Button)findViewById(R.id.btSend);
 
+
         declaration = (Declaration) getIntent().getSerializableExtra("declaration");
         if(declaration != null){
             declaration.setState(State.Pending);
@@ -79,7 +80,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
                     Toast.makeText(CheckDeclarationActivity.this,"Upload success", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent();
-                    setResult(999, intent);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             });
@@ -87,12 +88,20 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     }
 
     private void fillFields() {
-        txtPrice.setText(String.valueOf(declaration.getPrice()));
+        String price = "€" + String.valueOf(declaration.getPrice());
+        txtPrice.setText(price);
         txtAuthority.setText(declaration.getAuthority());
         txtDescription.setText(declaration.getDescription());
 
         File f = new File(declaration.getReceiptPhoto());
         contentUri = Uri.fromFile(f);
         Glide.with(this).load(contentUri).apply(new RequestOptions().centerCrop()).into(imageView);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 }

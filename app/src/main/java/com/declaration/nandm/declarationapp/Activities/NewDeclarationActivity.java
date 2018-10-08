@@ -166,7 +166,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 1){
             File f = new File(mCurrentPhotoPath);
@@ -176,7 +176,11 @@ public class NewDeclarationActivity extends AppCompatActivity {
             Glide.with(this).load(contentUri).apply(new RequestOptions().centerCrop()).into(imageView);
         }
         else if (requestCode == 999){
-            finish();
+            if (resultCode == RESULT_OK){
+                finish();
+            } else if (resultCode == RESULT_CANCELED){
+
+            }
         }
     }
 
