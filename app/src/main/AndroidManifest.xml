@@ -43,6 +43,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.CheckDeclarationActivity"
+            android:label="@string/title_activity_check_declaration"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.AuthoritiesActivity"
+            android:label="@string/title_activity_authority"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

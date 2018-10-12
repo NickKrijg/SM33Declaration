@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     Button btnSend;
     Button btnEdit;
 
+    ProgressBar bar;
+
     Uri contentUri;
 
     @Override
@@ -49,6 +52,8 @@ public class CheckDeclarationActivity extends AppCompatActivity {
         btnSend = (Button)findViewById(R.id.btSend);
         btnEdit = (Button)findViewById(R.id.btEdit);
 
+        bar = (ProgressBar)findViewById(R.id.progressbar);
+        bar.setVisibility(View.INVISIBLE);
 
         declaration = (Declaration) getIntent().getSerializableExtra("declaration");
         if(declaration != null){
@@ -71,9 +76,10 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     }
 
     private void sendDeclaration() {
+        bar.setVisibility(View.VISIBLE);
+
         final DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("Declarations");
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
         if (contentUri != null){
             declaration.setReceiptPhoto(contentUri.getLastPathSegment());
@@ -85,6 +91,7 @@ public class CheckDeclarationActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mDatabaseRef.push().setValue(declaration);
 
+                    bar.setVisibility(View.INVISIBLE);
                     Toast.makeText(CheckDeclarationActivity.this,"Upload success", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent();
