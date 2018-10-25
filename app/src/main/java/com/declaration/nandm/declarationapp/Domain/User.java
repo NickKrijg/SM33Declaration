@@ -6,6 +6,7 @@ import java.util.List;
 
 public class User implements Serializable{
 
+    private String key;
     private String name;
     private String email;
     private String iban;
@@ -20,6 +21,14 @@ public class User implements Serializable{
         this.email = email;
         this.iban = iban;
         this.authority = authority;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {

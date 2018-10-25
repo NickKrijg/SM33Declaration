@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AllDeclarationsAdapter adapter;
     private List<Declaration> declarations;
+    private List<Authority> authorities;
 
     private DataReceiver dataReceiver;
 
@@ -76,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 user = dataReceiver.getUser();
+                authorities = dataReceiver.getAuthorities();
                 Intent intent = new Intent(MainActivity.this, AuthoritiesActivity.class);
                 if (user != null){
                     intent.putExtra("user", user);
+                    intent.putExtra("authorities", (Serializable) authorities);
                     startActivityForResult(intent, 1);
                 }
             }
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Fill database with mock data, uncomment when db is empty
-        fillDatabaseMockData();
+//        fillDatabaseMockData();
 
         // Make Mock List
 //        PopulateList();
@@ -207,7 +211,6 @@ public class MainActivity extends AppCompatActivity {
             authRef.push().setValue(line);
         }
 
-        /*
         //Mock user data
         DatabaseReference databaseReference = mRoot.getReference("Users");
         User u = new User();
@@ -248,7 +251,6 @@ public class MainActivity extends AppCompatActivity {
             }
             reference.push().setValue(dec);
         }
-*/
     }
 
     @Override

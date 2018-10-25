@@ -8,4 +8,5 @@
     <string name="title_activity_new_declaration">New Declaration</string>
     <string name="title_activity_check_declaration">Check Declaration</string>
     <string name="title_activity_authority">Authorities</string>
+    <string name="title_activity_add_authority">Add Authority</string>
 </resources>
