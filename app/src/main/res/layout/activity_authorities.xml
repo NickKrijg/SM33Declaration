@@ -31,9 +31,11 @@
         android:id="@+id/fabAddAuth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:clickable="true"
-        app:srcCompat="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.constraint.ConstraintLayout>
