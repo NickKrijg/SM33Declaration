@@ -5,5 +5,7 @@
     <string name="action_play_next">Play Next</string>-->
     <string name="backdrop_title">Declaration App</string>
     <string name="backdrop_subtitle">Make your declarations here</string>
-    <string name="title_activity_new_declaration">newDeclarationActivity</string>
+    <string name="title_activity_new_declaration">New Declaration</string>
+    <string name="title_activity_check_declaration">Check Declaration</string>
+    <string name="title_activity_authority">Authorities</string>
 </resources>

@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         app:srcCompat="@android:drawable/btn_star_big_on"
+        android:layout_gravity="bottom"
         />
 
 </android.support.design.widget.CoordinatorLayout>

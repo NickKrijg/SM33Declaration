@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +34,9 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     TextView txtDescription;
     TextView txtAuthority;
     Button btnSend;
+    Button btnEdit;
+
+    ProgressBar bar;
 
     Uri contentUri;
 
@@ -46,6 +50,10 @@ public class CheckDeclarationActivity extends AppCompatActivity {
         txtAuthority = (TextView)findViewById(R.id.txtAuthority);
         txtDescription = (TextView)findViewById(R.id.txtDescription);
         btnSend = (Button)findViewById(R.id.btSend);
+        btnEdit = (Button)findViewById(R.id.btEdit);
+
+        bar = (ProgressBar)findViewById(R.id.progressbar);
+        bar.setVisibility(View.INVISIBLE);
 
         declaration = (Declaration) getIntent().getSerializableExtra("declaration");
         if(declaration != null){
@@ -59,12 +67,19 @@ public class CheckDeclarationActivity extends AppCompatActivity {
                 sendDeclaration();
             }
         });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void sendDeclaration() {
+        bar.setVisibility(View.VISIBLE);
+
         final DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference("Declarations");
         StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
-
 
         if (contentUri != null){
             declaration.setReceiptPhoto(contentUri.getLastPathSegment());
@@ -76,10 +91,11 @@ public class CheckDeclarationActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     mDatabaseRef.push().setValue(declaration);
 
+                    bar.setVisibility(View.INVISIBLE);
                     Toast.makeText(CheckDeclarationActivity.this,"Upload success", Toast.LENGTH_LONG).show();
 
                     Intent intent = new Intent();
-                    setResult(999, intent);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             });
@@ -87,12 +103,20 @@ public class CheckDeclarationActivity extends AppCompatActivity {
     }
 
     private void fillFields() {
-        txtPrice.setText(String.valueOf(declaration.getPrice()));
+        String price = "€" + String.valueOf(declaration.getPrice());
+        txtPrice.setText(price);
         txtAuthority.setText(declaration.getAuthority());
         txtDescription.setText(declaration.getDescription());
 
         File f = new File(declaration.getReceiptPhoto());
         contentUri = Uri.fromFile(f);
         Glide.with(this).load(contentUri).apply(new RequestOptions().centerCrop()).into(imageView);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent();
+        setResult(RESULT_CANCELED, intent);
+        finish();
     }
 }

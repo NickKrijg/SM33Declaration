@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#c77800</color>
 
     <color name="primaryColor">#ffb300</color>
     <color name="primaryLightColor">#ffe54c</color>
@@ -15,7 +15,7 @@
 
     <color name="statusDeclined">#bc0b0b</color>
     <color name="statusAccepted">#14bc0b</color>
-    <color name="statusPending">#0b0ebc</color>
+    <color name="statusPending">#40afd1</color>
 
     <color name="viewBg">#f1f5f8</color>
     <color name="declaration_title">#4c4c4c</color>

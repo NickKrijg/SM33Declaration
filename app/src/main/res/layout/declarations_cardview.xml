@@ -43,7 +43,7 @@
 
             <ImageView
                 android:id="@+id/overflow"
-                android:layout_width="@dimen/ic_album_overflow_width"
+                android:layout_width="7dp"
                 android:layout_height="match_parent"
                 android:src="@color/statusAccepted"
                 card_view:layout_constraintStart_toStartOf="parent"/>
