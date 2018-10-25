@@ -3,9 +3,12 @@ package com.declaration.nandm.declarationapp.Layout;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.R;
@@ -18,6 +21,7 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     private List<Declaration> declarations;
     private Context mContext;
+    private int mExpandedPosition = -1;
 
     public AllDeclarationsAdapter(Context mContext) {
         declarations = new ArrayList<>();
@@ -40,10 +44,12 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         Declaration declaration = declarations.get(position);
         holder.title.setText(declaration.getAuthority());
         holder.description.setText(declaration.getDescription());
         holder.price.setText("€" + String.valueOf(declaration.getPrice()));
+
         switch(declaration.getState()){
             case Declined:
                 holder.state.setImageResource(R.color.statusDeclined);

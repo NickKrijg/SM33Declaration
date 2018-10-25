@@ -12,9 +12,10 @@
         android:elevation="3dp"
         card_view:cardCornerRadius="@dimen/card_album_radius">
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
 
             <TextView
@@ -25,7 +26,8 @@
                 android:paddingRight="@dimen/declaration_title"
                 android:paddingTop="@dimen/card_margin"
                 android:textColor="@color/declaration_title"
-                android:textSize="@dimen/declaration_title" />
+                android:textSize="@dimen/declaration_title"
+                card_view:layout_constraintStart_toEndOf="@+id/overflow"/>
 
             <TextView
                 android:id="@+id/description"
@@ -35,27 +37,30 @@
                 android:paddingBottom="@dimen/declaration_description_padding_bottom"
                 android:paddingLeft="@dimen/declaration_title"
                 android:paddingRight="@dimen/declaration_title"
-                android:textSize="@dimen/declaration_description" />
+                android:textSize="@dimen/declaration_description"
+                card_view:layout_constraintTop_toBottomOf="@+id/title"/>
 
 
             <ImageView
                 android:id="@+id/overflow"
                 android:layout_width="@dimen/ic_album_overflow_width"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:src="@color/statusAccepted" />
+                android:src="@color/statusAccepted"
+                card_view:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
                 android:paddingRight="@dimen/card_margin"
                 android:textSize="@dimen/declaration_title"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginRight="5dp"
                 />
 
-        </RelativeLayout>
+
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.v7.widget.CardView>
 
