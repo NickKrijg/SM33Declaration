@@ -41,7 +41,15 @@ public class AddAuthorityActivity extends AppCompatActivity {
         ArrayList<String> authorityStrings = new ArrayList<>();
 
         for(Authority auth:authorities){
-            authorityStrings.add(auth.getName());
+            boolean temp = true;
+            for (Authority auth2:user.getAuthority()){
+                if (auth2.getName().equals(auth.getName())){
+                    temp = false;
+                }
+            }
+            if (temp){
+                authorityStrings.add(auth.getName());
+            }
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
