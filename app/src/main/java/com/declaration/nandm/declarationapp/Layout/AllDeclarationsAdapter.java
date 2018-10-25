@@ -16,7 +16,7 @@ import com.declaration.nandm.declarationapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
+public class AllDeclarationsAdapter extends RecyclerView.Adapter<DeclarationViewHolder> {
 
 
     private List<Declaration> declarations;
@@ -35,15 +35,15 @@ public class AllDeclarationsAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public DeclarationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.declarations_cardview, parent, false);
 
-        return new MyViewHolder(itemView);
+        return new DeclarationViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DeclarationViewHolder holder, int position) {
 
         Declaration declaration = declarations.get(position);
         holder.title.setText(declaration.getAuthority());

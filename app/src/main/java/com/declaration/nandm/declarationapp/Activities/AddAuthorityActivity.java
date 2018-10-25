@@ -99,7 +99,7 @@ public class AddAuthorityActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 ArrayList<String> result = new ArrayList<>();
                 for (String str : temp){
-                    if (str.contains(query)){
+                    if (str.toLowerCase().contains(query.toLowerCase())){
                         result.add(str);
                     }
                 }
