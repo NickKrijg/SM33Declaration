@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.declaration.nandm.declarationapp.Data.DataReceiver;
+import com.declaration.nandm.declarationapp.Data.MockDataClass;
 import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.State;
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         // Fill database with mock data, uncomment when db is empty
-//        fillDatabaseMockData();
+        fillDatabaseMockData();
 
         // Make Mock List
 //        PopulateList();
@@ -202,15 +203,11 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference authRef = mRoot.getReference("Authorities");
 
-        try(BufferedReader br = new BufferedReader(new FileReader("app/src/verenigingen.txt"))){
-            String line;
-            while((line = br.readLine()) != null){
-                authRef.push().setValue(line);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
+        for(String line:new MockDataClass().getAuthorities()){
+            authRef.push().setValue(line);
         }
 
+        /*
         //Mock user data
         DatabaseReference databaseReference = mRoot.getReference("Users");
         User u = new User();
@@ -218,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("Sportvereniging"));
         authorities.add(new Authority("Muziekvereniging"));
-        authorities.add(new Authority("Studentvereniging"));
+        authorities.add(new Authority("Studentenvereniging"));
 
         u.setAuthority(authorities);
         u.setEmail("nick@jids.nl");
@@ -251,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             }
             reference.push().setValue(dec);
         }
+*/
     }
 
     @Override
