@@ -14,6 +14,7 @@ import android.util.TypedValue;
 import android.view.View;
 
 import com.declaration.nandm.declarationapp.Data.DataReceiver;
+import com.declaration.nandm.declarationapp.Data.MockDataClass;
 import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.State;
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AllDeclarationsAdapter adapter;
     private List<Declaration> declarations;
+    private List<Authority> authorities;
 
     private DataReceiver dataReceiver;
 
@@ -75,9 +78,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 user = dataReceiver.getUser();
+                authorities = dataReceiver.getAuthorities();
                 Intent intent = new Intent(MainActivity.this, AuthoritiesActivity.class);
                 if (user != null){
                     intent.putExtra("user", user);
+                    intent.putExtra("authorities", (Serializable) authorities);
                     startActivityForResult(intent, 1);
                 }
             }
@@ -202,13 +207,8 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference authRef = mRoot.getReference("Authorities");
 
-        try(BufferedReader br = new BufferedReader(new FileReader("app/src/verenigingen.txt"))){
-            String line;
-            while((line = br.readLine()) != null){
-                authRef.push().setValue(line);
-            }
-        } catch (Exception e){
-            e.printStackTrace();
+        for(String line:new MockDataClass().getAuthorities()){
+            authRef.push().setValue(line);
         }
 
         //Mock user data
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Authority> authorities = new ArrayList<>();
         authorities.add(new Authority("Sportvereniging"));
         authorities.add(new Authority("Muziekvereniging"));
-        authorities.add(new Authority("Studentvereniging"));
+        authorities.add(new Authority("Studentenvereniging"));
 
         u.setAuthority(authorities);
         u.setEmail("nick@jids.nl");

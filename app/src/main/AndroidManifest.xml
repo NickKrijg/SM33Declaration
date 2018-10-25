@@ -49,6 +49,9 @@
             android:name=".Activities.AuthoritiesActivity"
             android:label="@string/title_activity_authority"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.AddAuthorityActivity"
+            android:label="@string/title_activity_add_authority"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.declaration.nandm.declarationapp.Data;
 
+import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.Declaration;
 import com.declaration.nandm.declarationapp.Domain.User;
 import com.declaration.nandm.declarationapp.Layout.AllDeclarationsAdapter;
@@ -22,6 +23,11 @@ public class DataReceiver {
         return user;
     }
 
+    public ArrayList<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    ArrayList<Authority> authorities;
     User user;
 
     public DataReceiver(String email, AllDeclarationsAdapter adapter){
@@ -29,8 +35,8 @@ public class DataReceiver {
         user = new User();
         getUser(email);
         getDeclaration(email);
+        getAllAuthorities();
     }
-
 
     private void getUser(String email){
         DatabaseReference userRef = mRoot.getReference("Users/");
@@ -41,6 +47,7 @@ public class DataReceiver {
 
                 for(DataSnapshot snap: dataSnapshot.getChildren()){
                     user = snap.getValue(User.class);
+                    user.setKey(snap.getKey());
                 }
             }
             @Override
@@ -66,6 +73,24 @@ public class DataReceiver {
                     adapter.setList(user.getDeclaration());
                 }
                 adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void getAllAuthorities(){
+        DatabaseReference ref = mRoot.getReference("Authorities");
+        authorities = new ArrayList<>();
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot snap: dataSnapshot.getChildren()){
+                    authorities.add(new Authority(snap.getValue(String.class)));
+                }
             }
 
             @Override
