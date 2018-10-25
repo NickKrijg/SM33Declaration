@@ -29,12 +29,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
+    private FloatingActionButton fab2;
 
     private RecyclerView recyclerView;
     private AllDeclarationsAdapter adapter;
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        fab2 = (FloatingActionButton)findViewById(R.id.floatingActionButton2);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +71,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user = dataReceiver.getUser();
+                Intent intent = new Intent(MainActivity.this, AuthoritiesActivity.class);
+                if (user != null){
+                    intent.putExtra("user", user);
+                    startActivityForResult(intent, 1);
+                }
+            }
+        });
         //Toolbar Collapsing
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -181,14 +198,27 @@ public class MainActivity extends AppCompatActivity {
 
     private void fillDatabaseMockData(){
 
+        //Mock data for Authorities
+
+        DatabaseReference authRef = mRoot.getReference("Authorities");
+
+        try(BufferedReader br = new BufferedReader(new FileReader("app/src/verenigingen.txt"))){
+            String line;
+            while((line = br.readLine()) != null){
+                authRef.push().setValue(line);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         //Mock user data
         DatabaseReference databaseReference = mRoot.getReference("Users");
         User u = new User();
 
         ArrayList<Authority> authorities = new ArrayList<>();
-        authorities.add(new Authority("Sportclub"));
-        authorities.add(new Authority("Muziekclub"));
-        authorities.add(new Authority("fokkingpindakaas"));
+        authorities.add(new Authority("Sportvereniging"));
+        authorities.add(new Authority("Muziekvereniging"));
+        authorities.add(new Authority("Studentvereniging"));
 
         u.setAuthority(authorities);
         u.setEmail("nick@jids.nl");

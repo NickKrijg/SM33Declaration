@@ -9,11 +9,11 @@ import android.widget.TextView;
 import com.declaration.nandm.declarationapp.R;
 
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class DeclarationViewHolder extends RecyclerView.ViewHolder {
     public TextView title, description, price;
     public ImageView state;
 
-    public MyViewHolder(View view) {
+    public DeclarationViewHolder(View view) {
         super(view);
         title = (TextView) view.findViewById(R.id.title);
         description = (TextView) view.findViewById(R.id.description);
