@@ -96,7 +96,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="20dp"
         android:clickable="true"
-        app:backgroundTint="@color/primaryColor"
-        app:srcCompat="@android:drawable/ic_menu_add" />
+        app:backgroundTint="@color/secondaryColor"
+        app:srcCompat="@drawable/plus" />
 
 </android.support.design.widget.CoordinatorLayout>

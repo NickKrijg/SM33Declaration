@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
 import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.User;
@@ -94,6 +95,8 @@ public class AuthoritiesActivity extends AppCompatActivity {
         user.setAuthority(temp);
 
         ref.setValue(user);
+
+        Toast.makeText(AuthoritiesActivity.this,"Deleted" + authority.getName(), Toast.LENGTH_SHORT).show();
 
         adapter.setList(user.getAuthority());
         adapter.notifyDataSetChanged();

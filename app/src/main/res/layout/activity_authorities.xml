@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:clickable="true"
-        app:backgroundTint="@color/primaryColor"
+        app:backgroundTint="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/plus" />
 
 </android.support.constraint.ConstraintLayout>
