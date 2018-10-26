@@ -2,6 +2,7 @@ package com.declaration.nandm.declarationapp.Layout;
 
 
 import android.content.Context;
+import android.media.Image;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -21,6 +22,7 @@ public class DeclarationViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView state, state2, photoReceipt;
     public ConstraintLayout originalLayout, expandableLayout;
+
 
     public DeclarationViewHolder(View view) {
         super(view);
