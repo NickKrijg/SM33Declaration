@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.declaration.nandm.declarationapp.Data.DataReceiver;
 import com.declaration.nandm.declarationapp.Data.MockDataClass;
@@ -42,12 +43,12 @@ import java.util.stream.Stream;
 public class MainActivity extends AppCompatActivity {
 
     private FloatingActionButton fab;
-    private FloatingActionButton fab2;
 
     private RecyclerView recyclerView;
     private AllDeclarationsAdapter adapter;
     private List<Declaration> declarations;
     private List<Authority> authorities;
+    private ImageView settings;
 
     private DataReceiver dataReceiver;
 
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         fab = (FloatingActionButton)findViewById(R.id.floatingActionButton);
-        fab2 = (FloatingActionButton)findViewById(R.id.floatingActionButton2);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fab2.setOnClickListener(new View.OnClickListener() {
+        settings = (ImageView)findViewById(R.id.settings);
+
+
+        settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 user = dataReceiver.getUser();
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
         //Toolbar Collapsing
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

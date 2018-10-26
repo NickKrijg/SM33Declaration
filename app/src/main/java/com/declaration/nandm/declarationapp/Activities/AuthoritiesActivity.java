@@ -2,21 +2,27 @@ package com.declaration.nandm.declarationapp.Activities;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Canvas;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewDebug;
+import android.widget.Toast;
 
 import com.declaration.nandm.declarationapp.Domain.Authority;
 import com.declaration.nandm.declarationapp.Domain.User;
 import com.declaration.nandm.declarationapp.Layout.AllAuthoritiesAdapter;
-import com.declaration.nandm.declarationapp.Layout.AllDeclarationsAdapter;
 import com.declaration.nandm.declarationapp.Layout.GridSpacingItemDecoration;
+import com.declaration.nandm.declarationapp.Layout.SwipeController;
+import com.declaration.nandm.declarationapp.Layout.SwipeControllerActions;
 import com.declaration.nandm.declarationapp.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.List;
@@ -49,6 +55,23 @@ public class AuthoritiesActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
+        final SwipeController swipeController = new SwipeController(new SwipeControllerActions() {
+            @Override
+            public void onRightClicked(int position) {
+                removeAuthority(user.getAuthority().get(position));
+            }
+        });
+
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeController);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void onDraw(@NonNull Canvas c, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+                swipeController.onDraw(c);
+            }
+        });
+
         if (user !=null){
             adapter.setList(user.getAuthority());
             adapter.notifyDataSetChanged();
@@ -62,6 +85,21 @@ public class AuthoritiesActivity extends AppCompatActivity {
                 startActivityForResult(i, 23);
             }
         });
+    }
+
+    private void removeAuthority(Authority authority) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/" + user.getKey());
+
+        List<Authority> temp = user.getAuthority();
+        temp.remove(authority);
+        user.setAuthority(temp);
+
+        ref.setValue(user);
+
+        Toast.makeText(AuthoritiesActivity.this,"Deleted" + authority.getName(), Toast.LENGTH_SHORT).show();
+
+        adapter.setList(user.getAuthority());
+        adapter.notifyDataSetChanged();
     }
 
     private int dpToPx(int dp) {

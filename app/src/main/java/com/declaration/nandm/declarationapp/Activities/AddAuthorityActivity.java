@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import com.declaration.nandm.declarationapp.Domain.Authority;
@@ -22,6 +23,7 @@ public class AddAuthorityActivity extends AppCompatActivity {
 
     private Spinner spinner;
     private Button btnAddAuth;
+    private SearchView searchView;
     private User user;
 
     @Override
@@ -29,6 +31,7 @@ public class AddAuthorityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_authority);
 
+        searchView = (SearchView)findViewById(R.id.searchAddAuth);
         spinner =(Spinner)findViewById(R.id.spinnerAddAuth);
         btnAddAuth = (Button)findViewById(R.id.btAddAuth);
 
@@ -79,13 +82,52 @@ public class AddAuthorityActivity extends AppCompatActivity {
                 temp.add(newItem);
                 user.setAuthority(temp);
 
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/"+user.getKey());
+                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/" + user.getKey());
                 ref.setValue(user);
 
                 Intent i = new Intent();
                 i.putExtra("user", user);
                 setResult(RESULT_OK, i);
                 finish();
+            }
+        });
+
+        //Search updates
+        final ArrayList<String> temp = authorityStrings;
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                ArrayList<String> result = new ArrayList<>();
+                for (String str : temp){
+                    if (str.toLowerCase().contains(query.toLowerCase())){
+                        result.add(str);
+                    }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        AddAuthorityActivity.this, android.R.layout.simple_spinner_item, result);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ArrayList<String> result = new ArrayList<>();
+                for (String str : temp){
+                    if (str.toLowerCase().contains(newText.toLowerCase())){
+                        result.add(str);
+                    }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                        AddAuthorityActivity.this, android.R.layout.simple_spinner_item, result);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+
+
+                return false;
             }
         });
     }

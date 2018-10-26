@@ -24,7 +24,7 @@ public class AllAuthoritiesAdapter extends RecyclerView.Adapter<AuthorityViewHol
     }
 
     public void setList(List<Authority> authorities){
-        this.authorities.clear();
+//        this.authorities.clear();
         this.authorities = authorities;
     }
 
