@@ -19,7 +19,7 @@ public class DeclarationViewHolder extends RecyclerView.ViewHolder {
     public TextView title, description, price;
     public TextView title2, description2, price2;
 
-    public ImageView state, state2;
+    public ImageView state, state2, photoReceipt;
     public ConstraintLayout originalLayout, expandableLayout;
 
     public DeclarationViewHolder(View view) {
@@ -33,6 +33,7 @@ public class DeclarationViewHolder extends RecyclerView.ViewHolder {
         description2 = (TextView) view.findViewById(R.id.description2);
         state2 = (ImageView) view.findViewById(R.id.overflow2);
         price2 = (TextView) view.findViewById(R.id.price2);
+        photoReceipt = (ImageView)view.findViewById(R.id.photoReceipt);
 
         expandableLayout = (ConstraintLayout) view.findViewById((R.id.expandableLayout));
         originalLayout = (ConstraintLayout) view.findViewById((R.id.originalLayout));

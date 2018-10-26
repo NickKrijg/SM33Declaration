@@ -3,6 +3,7 @@ package com.declaration.nandm.declarationapp.Domain;
 import android.net.Uri;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Date;
 
 public class Declaration implements Serializable{
@@ -15,6 +16,24 @@ public class Declaration implements Serializable{
     private State state;
     private Date date;
     private String userId;
+    private Uri photoUri;
+    private String photoUrl;
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public Uri getPhotoUri() {
+        return photoUri;
+    }
+
+    public void setPhotoUri(Uri photoUri) {
+        this.photoUri = photoUri;
+    }
 
     public void setTitle(String title) {
         this.title = title;

@@ -89,6 +89,8 @@ public class CheckDeclarationActivity extends AppCompatActivity {
             mStorageRef.putFile(contentUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    declaration.setPhotoUrl(taskSnapshot.getDownloadUrl().toString());
+
                     mDatabaseRef.push().setValue(declaration);
 
                     bar.setVisibility(View.INVISIBLE);
