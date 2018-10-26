@@ -1,7 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view"
@@ -10,12 +12,16 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/card_margin"
         android:elevation="3dp"
-        card_view:cardCornerRadius="@dimen/card_album_radius">
+        card_view:cardCornerRadius="@dimen/card_album_radius"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
+
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/originalLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:clickable="true">
 
 
             <TextView
@@ -23,22 +29,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/declaration_title"
-                android:paddingRight="@dimen/declaration_title"
                 android:paddingTop="@dimen/card_margin"
+                android:paddingRight="@dimen/declaration_title"
                 android:textColor="@color/declaration_title"
                 android:textSize="@dimen/declaration_title"
-                card_view:layout_constraintStart_toEndOf="@+id/overflow"/>
+                card_view:layout_constraintStart_toEndOf="@+id/overflow" />
 
             <TextView
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/title"
-                android:paddingBottom="@dimen/declaration_description_padding_bottom"
                 android:paddingLeft="@dimen/declaration_title"
                 android:paddingRight="@dimen/declaration_title"
+                android:paddingBottom="@dimen/declaration_description_padding_bottom"
                 android:textSize="@dimen/declaration_description"
-                card_view:layout_constraintTop_toBottomOf="@+id/title"/>
+                card_view:layout_constraintTop_toBottomOf="@+id/title" />
 
 
             <ImageView
@@ -46,22 +52,79 @@
                 android:layout_width="7dp"
                 android:layout_height="match_parent"
                 android:src="@color/statusAccepted"
-                card_view:layout_constraintStart_toStartOf="parent"/>
+                card_view:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
                 android:paddingRight="@dimen/card_margin"
                 android:textSize="@dimen/declaration_title"
-                card_view:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginRight="5dp"
-                />
+                card_view:layout_constraintEnd_toEndOf="parent" />
 
 
         </android.support.constraint.ConstraintLayout>
 
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/expandableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:clickable="true">
+
+
+                <ImageView
+                    android:id="@+id/photoReceipt"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/camera_placeholder"
+                    card_view:layout_constraintTop_toBottomOf="@id/title2"
+                    card_view:layout_constraintStart_toEndOf="@id/overflow2"/>
+
+                <ImageView
+                    android:id="@+id/overflow2"
+                    android:layout_width="7dp"
+                    android:layout_height="match_parent"
+                    android:src="@color/statusAccepted"
+                    card_view:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/declaration_title"
+                    android:paddingTop="@dimen/card_margin"
+                    android:paddingRight="@dimen/declaration_title"
+                    android:textColor="@color/declaration_title"
+                    android:textSize="@dimen/declaration_title"
+                    card_view:layout_constraintStart_toEndOf="@+id/overflow2"/>
+
+                <TextView
+                    android:id="@+id/description2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title2"
+                    android:paddingLeft="@dimen/declaration_title"
+                    android:paddingRight="@dimen/declaration_title"
+                    android:paddingBottom="@dimen/declaration_description_padding_bottom"
+                    android:textSize="@dimen/declaration_description"
+                    card_view:layout_constraintTop_toBottomOf="@+id/title2"
+                    card_view:layout_constraintStart_toEndOf="@id/photoReceipt"/>
+
+                <TextView
+                    android:id="@+id/price2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:paddingRight="@dimen/card_margin"
+                    android:textSize="@dimen/declaration_title"
+                    card_view:layout_constraintEnd_toEndOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
 </LinearLayout>
