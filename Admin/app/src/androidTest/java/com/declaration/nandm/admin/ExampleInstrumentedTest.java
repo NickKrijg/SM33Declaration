@@ -1,4 +1,4 @@
-package com.declaration.nandm.declarationappadmin;
+package com.declaration.nandm.admin;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.declaration.nandm.declarationappadmin", appContext.getPackageName());
+        assertEquals("com.declaration.nandm.admin", appContext.getPackageName());
     }
 }

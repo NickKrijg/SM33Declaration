@@ -1,4 +1,4 @@
-package com.declaration.nandm.declarationappadmin;
+package com.declaration.nandm.admin;
 
 import org.junit.Test;
 

@@ -96,7 +96,7 @@ public class AuthoritiesActivity extends AppCompatActivity {
 
         ref.setValue(user);
 
-        Toast.makeText(AuthoritiesActivity.this,"Deleted" + authority.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(AuthoritiesActivity.this,"Deleted " + authority.getName(), Toast.LENGTH_SHORT).show();
 
         adapter.setList(user.getAuthority());
         adapter.notifyDataSetChanged();
