@@ -45,7 +45,8 @@
                 android:paddingRight="@dimen/declaration_title"
                 android:paddingBottom="@dimen/declaration_description_padding_bottom"
                 android:textSize="@dimen/declaration_description"
-                card_view:layout_constraintTop_toBottomOf="@+id/title" />
+                card_view:layout_constraintTop_toBottomOf="@+id/title"
+                card_view:layout_constraintStart_toStartOf="@id/title"/>
 
 
             <ImageView
@@ -73,68 +74,74 @@
             android:id="@+id/expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:clickable="true">
+            android:clickable="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
+            <ImageView
+                android:id="@+id/photoReceipt"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/camera_placeholder"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@id/guideline2"
+                card_view:layout_constraintTop_toBottomOf="@id/title2" />
 
-                <ImageView
-                    android:id="@+id/photoReceipt"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    android:src="@drawable/camera_placeholder"
-                    card_view:layout_constraintTop_toBottomOf="@id/title2"
-                    card_view:layout_constraintEnd_toEndOf="parent"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="10dp"
-                    card_view:layout_constraintStart_toEndOf="@id/description2"/>
+            <ImageView
+                android:id="@+id/overflow2"
+                android:layout_width="7dp"
+                android:layout_height="match_parent"
+                android:src="@color/statusAccepted"
+                card_view:layout_constraintStart_toStartOf="parent" />
 
-                <ImageView
-                    android:id="@+id/overflow2"
-                    android:layout_width="7dp"
-                    android:layout_height="match_parent"
-                    android:src="@color/statusAccepted"
-                    card_view:layout_constraintStart_toStartOf="parent"
-                    />
+            <TextView
+                android:id="@+id/title2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/declaration_title"
+                android:paddingTop="@dimen/card_margin"
+                android:paddingRight="@dimen/declaration_title"
+                android:textColor="@color/declaration_title"
+                android:textSize="@dimen/declaration_title"
+                card_view:layout_constraintStart_toEndOf="@+id/overflow2" />
 
-                <TextView
-                    android:id="@+id/title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/declaration_title"
-                    android:paddingTop="@dimen/card_margin"
-                    android:paddingRight="@dimen/declaration_title"
-                    android:textColor="@color/declaration_title"
-                    android:textSize="@dimen/declaration_title"
-                    card_view:layout_constraintStart_toEndOf="@+id/overflow2"/>
+            <TextView
+                android:id="@+id/description2"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title2"
+                android:autoSizeTextType="uniform"
+                android:paddingLeft="@dimen/declaration_title"
+                android:paddingTop="15dp"
+                android:paddingRight="@dimen/declaration_title"
+                android:paddingBottom="@dimen/declaration_description_padding_bottom"
+                android:textSize="@dimen/declaration_description"
+                card_view:layout_constraintEnd_toStartOf="@id/guideline2"
+                card_view:layout_constraintStart_toStartOf="@id/title2"
+                card_view:layout_constraintTop_toBottomOf="@+id/title2" />
 
-                <TextView
-                    android:id="@+id/description2"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:autoSizeTextType="uniform"
-                    android:layout_below="@id/title2"
-                    android:paddingLeft="@dimen/declaration_title"
-                    android:paddingRight="@dimen/declaration_title"
-                    android:paddingBottom="@dimen/declaration_description_padding_bottom"
-                    android:textSize="@dimen/declaration_description"
-                    android:paddingTop="15dp"
-                    card_view:layout_constraintTop_toBottomOf="@+id/title2"
-                    card_view:layout_constraintStart_toStartOf="@id/title2"
-                    card_view:layout_constraintEnd_toStartOf="@id/photoReceipt"
-                    />
-                <TextView
-                    android:id="@+id/price2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="5dp"
-                    android:paddingRight="@dimen/card_margin"
-                    android:textSize="@dimen/declaration_title"
-                    card_view:layout_constraintStart_toStartOf="@id/description2"
-                    card_view:layout_constraintTop_toBottomOf="@id/description2"
-                    card_view:layout_constraintEnd_toStartOf="@id/photoReceipt"
-                    android:paddingTop="10dp"
-                    />
+            <TextView
+                android:id="@+id/price2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:paddingTop="10dp"
+                android:paddingRight="@dimen/card_margin"
+                android:textSize="@dimen/declaration_title"
+                card_view:layout_constraintEnd_toStartOf="@id/guideline2"
+                card_view:layout_constraintStart_toStartOf="@id/description2"
+                card_view:layout_constraintTop_toBottomOf="@id/description2" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintHorizontal_bias="0.5"
+                card_view:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
