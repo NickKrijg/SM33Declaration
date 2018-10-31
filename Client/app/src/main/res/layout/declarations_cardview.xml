@@ -75,7 +75,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -83,10 +82,12 @@
                 android:layout_width="0dp"
                 android:layout_height="150dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:src="@drawable/camera_placeholder"
                 card_view:layout_constraintEnd_toEndOf="parent"
                 card_view:layout_constraintStart_toEndOf="@id/guideline2"
-                card_view:layout_constraintTop_toBottomOf="@id/title2" />
+                card_view:layout_constraintTop_toBottomOf="@id/title2"
+                card_view:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                 android:id="@+id/overflow2"
