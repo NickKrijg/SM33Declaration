@@ -82,7 +82,7 @@ public class NewDeclarationActivity extends AppCompatActivity {
         });
 
 
-       // dispatchPhotoIntent();
+        dispatchPhotoIntent();
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
