@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             declaration.setState(State.Declined);
         }
         decRef.setValue(declaration);
-        System.out.println("something changed djsiofjaiodfgajdiofjsdioajf");
 
         adapter.notifyDataSetChanged();
     }
